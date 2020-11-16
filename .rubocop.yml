@@ -1,3 +1,15 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'script/**/*'
+    - 'bin/{bundle,rails,rake,setup,spring,update}'
+
+Documentation:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 150
 
