@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   namespace :student do
     resources :dashboard, only: %i[index]
-    resources :companies
+    resources :companies do
+      resources :transactions, only: %i[new create]
+    end
   end
 end

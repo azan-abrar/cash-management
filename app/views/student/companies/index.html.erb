@@ -18,8 +18,9 @@
           <td><%= company.country_of_incorporation %></td>
           <td><%= company.currency %></td>
           <td>
+            <%= link_to 'Show', student_company_path(company), class: 'btn btn-sm btn-primary' %>
             <%= link_to 'Edit', edit_student_company_path(company), class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Delete', student_company_path(company), method: :delete, class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Delete', student_company_path(company), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-primary' %>
           </td>
         </tr>
       <% end %>

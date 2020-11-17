@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_092618) do
+ActiveRecord::Schema.define(version: 2020_11_17_105922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2020_11_17_092618) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "cashes", force: :cascade do |t|
+    t.bigint "company_id"
+    t.float "initial_balance"
+    t.float "remaining_balance"
+    t.jsonb "monthly_balance", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_cashes_on_company_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
@@ -44,6 +54,17 @@ ActiveRecord::Schema.define(version: 2020_11_17_092618) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_companies_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "cash_id"
+    t.integer "nature"
+    t.float "amount"
+    t.string "category"
+    t.string "other"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cash_id"], name: "index_transactions_on_cash_id"
   end
 
   create_table "users", force: :cascade do |t|

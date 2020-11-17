@@ -1,0 +1,10 @@
+$('#new-transaction-modal-container').html("<%= j(render 'student/transactions/partials/form', company: @company, transaction: @transaction) %>");
+$('#new-transaction-modal').show('modal');
+
+$('body').on('change', '#transaction-category-dd', function() {
+  if ($(this).val() == 'Other') {
+    $('#transaction-other-field').removeClass('d-none');
+  } else {
+    $('#transaction-other-field').addClass('d-none');
+  }
+});

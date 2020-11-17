@@ -1,0 +1,67 @@
+<div class="mb-2">
+  <%= link_to 'Cash In', new_student_company_transaction_path(@company.id, cash: Transaction.natures['cash_in']), remote: true, class: 'btn btn-primary' %> |
+  <%= link_to 'Cash Out', new_student_company_transaction_path(@company.id, cash: Transaction.natures['cash_out']), remote: true, class: 'btn btn-primary' %>
+</div>
+
+<div class="mb-3 mt-3">
+  <h1>Current Account Balance</h1>
+  <div><%= @cash.remaining_balance %></div>
+</div>
+
+<div class="mb-3 mt-3">
+  <h1>Monthly Balance History</h1>
+  <% if @cash.monthly_balance.present? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Month</th>
+          <th scope="col">Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cash.monthly_balance.each do |k, v| %>
+          <tr>
+            <td><%= k %></td>
+            <td><%= v %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div>No Monthly History Yet!</div>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="mb-3 mt-3">
+  <h1>Transaction History</h1>
+  <% if @cash.transactions.present? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Category</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Month</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cash.transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.nature.humanize %></td>
+            <td><%= transaction.category == 'Other' ? "#{transaction.category} (#{transaction.other})" : transaction.category  %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.created_at.strftime('%m-%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div>No Transaction History Yet!</div>
+  <% end %>
+</div>
+
+
+
+<div id="new-transaction-modal-container"></div>

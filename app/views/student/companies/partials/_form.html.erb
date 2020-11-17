@@ -14,6 +14,15 @@
     <%= f.select :currency, options_for_select(Company::CURRENCIES.map { |c| [c, c] }), { prompt: 'Please select a currency.' }, class: 'form-control', required: true %>
   </div>
 
+  <% if params[:action].in?(%w[new create]) %>
+    <%= f.fields_for :cash do |c| %>
+      <div class="field form-group mb-3">
+        <%= c.label :initial_balance, class: 'mb-2 d-block' %>
+        <%= c.number_field :initial_balance, min: 1, step: 0.5, class: 'form-control', required: true %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="field form-group mb-3">
     <%= f.submit class: 'btn btn-success' %>
     <%= link_to 'Back', student_companies_path %>

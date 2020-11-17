@@ -1,0 +1,33 @@
+<div class="modal" tabindex="-1" role="dialog" id="new-transaction-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_for transaction, url: student_company_transactions_path(company.id) do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title"><%= transaction.cash_in? ? 'New Cash In' : 'New Cash Out' %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= f.hidden_field :nature, value: transaction.nature %>
+          <div class="field form-group mb-3">
+            <%= f.label :category, 'Category', class: 'mb-2 d-block' %>
+            <%= f.select :category, options_for_select(transaction.cash_in? ? Transaction::CASH_IN_CATS : Transaction::CASH_OUT_CATS), { include_blank: 'Select Category' }, class: 'form-control', id: 'transaction-category-dd', required: true %>
+          </div>
+          <div class="field form-group mb-3 d-none" id="transaction-other-field">
+            <%= f.label :other, 'Other (please specify)', class: 'mb-2 d-block' %>
+            <%= f.text_field :other, class: 'form-control' %>
+          </div>
+          <div class="field form-group mb-3">
+            <%= f.label :amount, class: 'mb-2 d-block' %>
+            <%= f.number_field :amount, min: 1, step: 0.5, class: 'form-control', required: true %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit class: 'btn btn-primary' %>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

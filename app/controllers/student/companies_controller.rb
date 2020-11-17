@@ -9,6 +9,7 @@ class Student::CompaniesController < Student::BaseController
 
   def new
     @company = Company.new
+    @company.build_cash
   end
 
   def create
@@ -17,6 +18,7 @@ class Student::CompaniesController < Student::BaseController
     if @company.save
       redirect_to student_companies_path, notice: 'Company was successfully created.'
     else
+      @company.build_cash
       render :new
     end
   end
@@ -31,7 +33,9 @@ class Student::CompaniesController < Student::BaseController
     end
   end
 
-  def show; end
+  def show
+    @cash = @company.cash
+  end
 
   def destroy
     @company.destroy
@@ -45,6 +49,6 @@ class Student::CompaniesController < Student::BaseController
   end
 
   def company_params
-    params.require(:company).permit(:name, :country_of_incorporation, :currency)
+    params.require(:company).permit(:name, :country_of_incorporation, :currency, cash_attributes: %i[initial_balance])
   end
 end
