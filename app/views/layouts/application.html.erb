@@ -10,7 +10,11 @@
   <body>
     <%= render 'layouts/partials/header' %>
     <%= render 'layouts/partials/flash' %>
-    <%= yield %>
+    <div class="container">
+      <div class="mt-5">
+        <%= yield %>
+      </div>
+    </div>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

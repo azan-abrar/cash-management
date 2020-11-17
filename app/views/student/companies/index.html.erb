@@ -1,0 +1,30 @@
+<div class="mb-2">
+  <%= link_to 'New Company', new_student_company_path, class: 'btn btn-primary' %>
+</div>
+<% if @companies.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Country of Incorporation</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @companies.each do |company| %>
+        <tr>
+          <td><%= company.name %></td>
+          <td><%= company.country_of_incorporation %></td>
+          <td><%= company.currency %></td>
+          <td>
+            <%= link_to 'Edit', edit_student_company_path(company), class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Delete', student_company_path(company), method: :delete, class: 'btn btn-sm btn-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div>No Companies Yet!</div>
+<% end %>

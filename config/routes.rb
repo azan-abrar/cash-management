@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 
   namespace :student do
     resources :dashboard, only: %i[index]
+    resources :companies
   end
 end
